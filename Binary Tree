@@ -1,0 +1,53 @@
+#include <iostream>
+using namespace std;
+#include<cstdlib>
+
+class node{
+    public:
+    int data;
+    node*left,*right;
+    node(int val){
+        data=val;
+        left=NULL;
+        right=NULL;
+    }
+};
+node*createNode(int val){
+    node*newnode=new node(val);
+    newnode->left=NULL;
+    newnode->right=NULL;
+    return newnode;
+}
+node*binarysearch(node*root,int val){
+    if(root==NULL){
+        return createNode(val);
+    }
+    if(val<root->data){
+        root->left=binarysearch(root->left,val);
+    }
+    else if(val>root->data){
+        root->right=binarysearch(root->right,val);
+    }
+    return root;
+}
+void inOrder(node*root){
+    if(root==NULL){
+        return;
+    }
+    inOrder(root->left);
+    cout<<root->data<<" ";
+    inOrder(root->right);
+}
+int main(){
+    node*root=NULL;
+    int n,value;
+    cout<<"how many nodes you want to insert: ";
+    cin>>n;
+    for(int i=0;i<n;i++){
+        cout<<"Enter the value: ";
+        cin>>value;
+        root=binarysearch(root,value);
+    }
+    inOrder(root);
+    return 0;
+}
